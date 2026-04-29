@@ -258,6 +258,7 @@
                 align-items: center;
                 gap: 28px;
                 font-weight: 500;
+                    margin-top: -16px;
             }
             .tab {
                 font-size: 15px;
@@ -283,26 +284,35 @@
             }
 
             .list {
-                margin: 0 16px;
-                background: #fff;
-                border-radius: 12px 12px 0 0;
-                overflow: hidden;
+               margin: 2px 16px; /* thêm khoảng trắng trên + 2 bên */
+    background: #fff;
+    border-radius: 16px; /* bo full */
+    overflow: hidden;
             }
 
             .item {
                 min-height: 58px;
-                padding: 8px 14px;
+                /* padding: 8px 14px; */
                 display: flex;
                 justify-content: space-between;
-                align-items: flex-start;
+                /* align-items: flex-start; */
                 position: relative;
                 gap: 8px;
             }
+            .item::after {
+    content: '';
+    position: absolute;
+    left: 58px;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: #eeeeef;
+}
             .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 0;
+    padding: 14px 12px;
     text-decoration: none;
     color: inherit;
     transition: background 0.15s ease;
@@ -401,7 +411,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 42px 15px 25px;
+    padding: 30px 15px 25px;
     color: white;
     display: grid;
     grid-template-columns: 1fr 1fr 58px;
