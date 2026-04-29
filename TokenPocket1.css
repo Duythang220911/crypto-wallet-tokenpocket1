@@ -615,14 +615,14 @@ img {
     background: rgba(0,0,0,0.06);
     transform: scale(0.97);
 }
-#transition-layer {
+/* #transition-layer {
     transform: translateX(100%);
     transition: transform 0.3s ease;
 }
 
 #transition-layer.show {
     transform: translateX(0);
-}
+} */
 .token-item.active {
     background: rgba(0,0,0,0.06);
     transition: 0.15s;
