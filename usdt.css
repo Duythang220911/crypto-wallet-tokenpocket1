@@ -15,7 +15,7 @@ body {
 .phone-container {
     width: 375px;
     background-color: #ffffff; /* Màu xám nhạt nền */
-    min-height: 811px;
+    min-height: 812px;
     position: relative;
     border-radius: 30px;
     overflow: hidden;
