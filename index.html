@@ -1,43 +1,84 @@
 <!doctype html>
 <html lang="vi">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <title>Token Pocket</title>
+   <head>
+    <meta charset="UTF-8">
 
-        <link rel="stylesheet" href="TokenPocket1.css" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" 
-            rel="stylesheet"
-        />
-        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-            <!-- Icon khi thêm ra màn hình chính iPhone -->
-    <link rel="apple-touch-icon"
-          sizes="180x180"
-          href="img/images/pocket.png">
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 user-scalable=no,
+                 viewport-fit=cover"
+    >
 
-    <!-- Icon trên trình duyệt -->
-    <link rel="icon"
-          type="image/png"
-          sizes="512x512"
-          href="img/images/pocket.png">
+    <title>TokenPocket</title>
 
-    <!-- Mở giống ứng dụng trên iPhone -->
-    <meta name="apple-mobile-web-app-capable"
-          content="yes">
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="./TokenPocket1.css"
+    >
 
-    <meta name="apple-mobile-web-app-status-bar-style"
-          content="default">
+    <!-- Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-    <meta name="apple-mobile-web-app-title"
-          content="MB Bank">
+    <!-- Boxicons -->
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    >
 
-    <meta name="theme-color"
-          content="#ffffff">
+    <!-- Manifest PWA -->
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
 
-   
+    <!-- Icon màn hình chính iPhone -->
+    <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="./img/images/pocket.png"
+    >
 
-    </head>
+    <!-- Icon trình duyệt -->
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="512x512"
+        href="./img/images/pocket.png"
+    >
+
+    <!-- Mở dưới dạng ứng dụng -->
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="TokenPocket"
+    >
+
+    <meta
+        name="theme-color"
+        content="#ffffff"
+    >
+</head>
 
     <body>
        <div id="transition-layer"></div>
@@ -48,7 +89,7 @@
         <main class="app-container">
             <header class="top-header">
                 <div class="header-left">
-                    <button class="plain-btn header-img-btn">
+                    <button type="button" class="plain-btn header-img-btn">
                         <img class="header-icon icon-menu-line" src="img/images/gach1.png" alt="menu" />
                     </button>
 
@@ -150,7 +191,7 @@
                         </div>
                     </div>
 
-                    <a href="usdt.html" class="token-item">
+                    <a href="./usdt.html" class="token-item">
                         <div class="token-icon-wrap">
                             <img class="token-icon token-usdt" src="img/images/BSC.png" alt="USDT" />
                         </div>
@@ -244,48 +285,123 @@
         </div>
     </button>
 
-</nav>
-        </main>
-    </body>
+
+        </nav>
     </main>
 
-<script>
-document.querySelectorAll('.token-item').forEach(item => {
-    item.addEventListener('click', function (e) {
-        e.preventDefault();
+    <script>
+        const overlay =
+            document.getElementById("transition-layer");
 
-        this.classList.add('active');
+        document
+            .querySelectorAll("a.token-item")
+            .forEach(item => {
+                item.addEventListener(
+                    "click",
+                    function (event) {
+                        event.preventDefault();
+
+                        const target =
+                            this.getAttribute("href");
+
+                        if (!target) {
+                            return;
+                        }
+
+                        this.classList.add("active");
+
+                        if (overlay) {
+                            overlay.classList.add("show");
+                        }
+
+                        setTimeout(() => {
+                            window.location.assign(target);
+                        }, 280);
+                    }
+                );
+            });
+
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker
+                    .register("./service-worker.js")
+                    .then(function () {
+                        console.log(
+                            "Service Worker đã hoạt động"
+                        );
+                    })
+                    .catch(function (error) {
+                        console.log(
+                            "Lỗi Service Worker:",
+                            error
+                        );
+                    });
+            });
+        }
+         const copyButton = document.getElementById("copyBtn");
+    const addressElement = document.getElementById("address");
+
+    if (copyButton && addressElement) {
+        copyButton.addEventListener("click", async () => {
+            const text = addressElement.textContent.trim();
+
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast("Đã copy địa chỉ");
+            } catch (error) {
+                const temporaryInput =
+                    document.createElement("textarea");
+
+                temporaryInput.value = text;
+                temporaryInput.style.position = "fixed";
+                temporaryInput.style.opacity = "0";
+
+                document.body.appendChild(temporaryInput);
+                temporaryInput.select();
+
+                document.execCommand("copy");
+                temporaryInput.remove();
+
+                showToast("Đã copy địa chỉ");
+            }
+        });
+    }
+
+    function showToast(message) {
+        const oldToast = document.querySelector(".toast");
+
+        if (oldToast) {
+            oldToast.remove();
+        }
+
+        const toast = document.createElement("div");
+        toast.textContent = message;
+        toast.className = "toast";
+
+        document.body.appendChild(toast);
 
         setTimeout(() => {
-            window.location.href = this.getAttribute('href');
-        }, 120);
-    });
-});
-</script>
-<script>
+            toast.remove();
+        }, 1500);
+    }
 
-
-document.querySelectorAll('.token-item').forEach(item => {
-    item.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        // hiệu ứng bấm
-        this.classList.add('active');
-
-        // fade màn hình
-        overlay.classList.add('show');
-
-        // delay rồi chuyển trang
-        setTimeout(() => {
-            window.location.href = this.getAttribute('href');
-        }, 280); // 👈 chỉnh 250–350ms
-    });
-});
-</script>
-<!-- <div id="transition-layer"></div> -->
-
-
-    
-
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(() => {
+                    console.log(
+                        "Service Worker đã hoạt động"
+                    );
+                })
+                .catch(error => {
+                    console.log(
+                        "Lỗi Service Worker:",
+                        error
+                    );
+                });
+        });
+    }
+    </script>
 </body>
 </html>
