@@ -2,10 +2,116 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Details</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+ 
+
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 user-scalable=no,
+                 viewport-fit=cover"
+    >
+
+    <title>TokenPocket</title>
+
+
+    <!-- =========================
+         CẤU HÌNH PWA
+    ========================== -->
+
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
+
+
+    <!-- =========================
+         ICON NGOÀI MÀN HÌNH IPHONE
+    ========================== -->
+
+    <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="img/images/pocket.png"
+    >
+
+
+    <!-- =========================
+         ICON TRÊN TRÌNH DUYỆT
+    ========================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="512x512"
+        href="img/images/pocket.png"
+    >
+
+
+    <!-- =========================
+         MỞ GIỐNG ỨNG DỤNG IPHONE
+    ========================== -->
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+
+    <!-- =========================
+         THANH TRẠNG THÁI IPHONE
+    ========================== -->
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+
+    <!-- =========================
+         TÊN ỨNG DỤNG
+    ========================== -->
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="TokenPocket"
+    >
+
+
+    <!-- =========================
+         MÀU GIAO DIỆN
+    ========================== -->
+
+    <meta
+        name="theme-color"
+        content="#f4f5fa"
+    >
+
+
+    <!-- =========================
+         FONT INTER
+    ========================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================
+         ICON BOXICONS
+    ========================== -->
+
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    >
     <style>
      body {
     margin: 0;
@@ -423,5 +529,19 @@
 
 </div>
 </div>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker
+        .register("./service-worker.js")
+        .then(function () {
+          console.log("Service Worker đã hoạt động");
+        })
+        .catch(function (error) {
+          console.log("Lỗi Service Worker:", error);
+        });
+    });
+  }
+</script>
 </body>
 </html>
